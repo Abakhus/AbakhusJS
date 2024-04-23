@@ -12,3 +12,24 @@ AbakhusJS is a TypeScript library designed to interact with any blockchain netwo
 7. Error Handling: Implement robust error handling strategies for blockchain interactions, including retries and fallback mechanisms.
 8. Security: Integrate secure practices such as input validation, sanitization, and private key management.
 9. Documentation: Provide comprehensive documentation and clear API references for users of AbakhusJS.
+
+## Roadmap:
+1. Planning and Design:
+Define library objectives, use cases, and key abstractions.
+Design the architecture incorporating the required design patterns.
+2. Development:
+Implement the Abstract Factory for creating blockchain clients.
+Develop Factory Methods for different network clients.
+Implement Singleton for client instances.
+Use Composite for complex blockchain objects.
+Integrate Observer for event handling and notifications.
+Define TypeScript interfaces and types for clarity and safety.
+3. Testing and Optimization:
+Conduct unit and integration tests for each component.
+Optimize performance and memory usage.
+4. Documentation:
+Create thorough documentation including code examples, usage guidelines, and API references.
+5. Release and Maintenance:
+Release the library with versioning and changelogs.
+Monitor user feedback and make continuous improvements.
+Maintain compatibility with new blockchain protocols and updates.
