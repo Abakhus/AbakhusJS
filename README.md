@@ -1,6 +1,6 @@
 # AbakhusJS
 
-AbakhusJS is a TypeScript library designed to interact with any blockchain network by utilizing design pattern concepts such as Abstract Factory, Factory Method, Singleton, Composite, and Observer. This approach provides a versatile, maintainable, and scalable architecture.
+AbakhusJS is a TypeScript library of the Abakhus platform, designed to interact with any blockchain network by utilizing design pattern concepts such as Abstract Factory, Factory Method, Singleton, Composite, and Observer. This approach provides a versatile, maintainable, and scalable architecture.
 
 ## Requisites:
 1. Abstract Factory: Create an abstraction layer to produce different types of blockchain network clients, each specific to a particular blockchain protocol or network.
@@ -14,22 +14,22 @@ AbakhusJS is a TypeScript library designed to interact with any blockchain netwo
 9. Documentation: Provide comprehensive documentation and clear references for users of AbakhusJS.
 
 ## Roadmap:
-1. Planning and Design:
+1. (Q2 2024) Planning and Design:
 Define library objectives, use cases, and key abstractions.
 Design the architecture incorporating the required design patterns.
-2. Development:
+2. (Q2-Q3 2024) Development:
 Implement the Abstract Factory for creating blockchain clients.
 Develop Factory Methods for different network clients.
 Implement Singleton for client instances.
 Use Composite for complex blockchain objects.
 Integrate Observer for event handling and notifications.
 Define TypeScript interfaces and types for clarity and safety.
-3. Testing and Optimization:
+3. (Q3 2024) Testing and Optimization:
 Conduct unit and integration tests for each component.
 Optimize performance and memory usage.
-4. Documentation:
+4. (Q2-Q4 2024) Documentation:
 Create thorough documentation including code examples, usage guidelines, and API references.
-5. Release and Maintenance:
+5. (Q3-Q4 2024) Release and Maintenance:
 Release the library with versioning and changelogs.
 Monitor user feedback and make continuous improvements.
 Maintain compatibility with new blockchain protocols and updates.
