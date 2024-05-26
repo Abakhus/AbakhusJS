@@ -17,4 +17,8 @@ export class EthereumClient {
     getWallet(): Promise<any | undefined> {
         return Promise.resolve(undefined);
     }
+
+    getNetworkProvider(): undefined {
+        return undefined;
+    }
 }

@@ -1,11 +1,13 @@
 import { EthereumClient } from "./ethereum";
 import { CosmosClient } from "./cosmos";
+import { SecretNetworkClient } from "secretjs";
 
 
 abstract class AbakhusJSAbstractFactory {
     public abstract createNetwork(networkType: string): CosmosClient | EthereumClient;
     public abstract toString(): string; 
     public abstract getWallet(): Promise<any | undefined>;   
+    public abstract getNetworkProvider(): SecretNetworkClient | undefined;
 }
 
 export class AbakhusJS extends AbakhusJSAbstractFactory {
@@ -32,6 +34,10 @@ export class AbakhusJS extends AbakhusJSAbstractFactory {
 
     public getWallet(): Promise<any | undefined> {
         return this.network.getWallet();
+    }
+
+    public getNetworkProvider(): SecretNetworkClient | undefined {
+        return this.network.getNetworkProvider();
     }
 
 }

@@ -1,5 +1,5 @@
 import { CreateClientOptions, SecretNetworkClient, Wallet } from "secretjs";
-import { Window as KeplrWindow } from "@keplr-wallet/types";
+import { Window as KeplrWindow, OfflineAminoSigner } from "@keplr-wallet/types";
 
 declare global {
     interface Window extends KeplrWindow {}
@@ -8,9 +8,8 @@ declare global {
 
 export class CosmosClient {
 
-    private wallet: Wallet | undefined;
-    private options: CreateClientOptions | undefined;
-
+    private wallet: OfflineAminoSigner | undefined;
+    
     constructor() {
         try {
             
@@ -18,30 +17,30 @@ export class CosmosClient {
             // TO-DO: colocar o .env para ser carregado
             console.log("Chain: ",process.env.CHAIN_ID);
 
-            this.wallet = this.createWallet();
-            this.options = this.createOptions(this.wallet);
+            // this.wallet = this.createWallet();
         } catch (error: any) {
             console.error('Error in CosmosClient constructor:', error.message);
         }
     }
 
     getNetwork(): SecretNetworkClient {
-        return new SecretNetworkClient(this.options!);
+        return new SecretNetworkClient(this.createOptions());
     }
 
     // Other methods specific to CosmosClient
-    createOptions(wallet: Wallet): CreateClientOptions {
+    createOptions(): CreateClientOptions {
         return {
-            url: process.env.GRPC_WEB_URL as string,
-            chainId: process.env.CHAIN_ID as string,
-            wallet: wallet,
-            walletAddress: process.env.WALLET_MINTER,
+            url: 'https://lcd.pulsar-3.secretsaturn.net', //process.env.GRPC_WEB_URL as string,
+            chainId: 'pulsar-3', //process.env.CHAIN_ID as string,
+            wallet: this.wallet,
+            encryptionUtils: window.getEnigmaUtils!(process.env.CHAIN_ID as string),
+            walletAddress: '', //TO-DO
         };
     }
 
-    createWallet(): Wallet {
-        return new Wallet(process.env.WALLET_MNEMONIC);
-    }
+    // createWallet(): Wallet {
+    //     return new Wallet(process.env.WALLET_MNEMONIC);
+    // }
 
     toString(): string {
         return "Cosmos::SecretNetwork";
@@ -51,7 +50,8 @@ export class CosmosClient {
         try {
             if (typeof window !== 'undefined' && window.keplr) {
                 await window.keplr.enable('pulsar-3');
-                return window.keplr.getOfflineSignerOnlyAmino('pulsar-3');
+                this.wallet = window.keplr.getOfflineSignerOnlyAmino('pulsar-3');
+                return this.wallet;
             } else {
                 console.log('Keplr wallet not installed!');
                 return undefined;
@@ -62,4 +62,8 @@ export class CosmosClient {
         }
     }
 
+    getNetworkProvider(): SecretNetworkClient | undefined {
+        const networkProvider = new SecretNetworkClient(this.createOptions());
+        return networkProvider;
+    }
 }
