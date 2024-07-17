@@ -1,5 +1,6 @@
 import { CreateClientOptions, SecretNetworkClient, Wallet } from "secretjs";
 import { Window as KeplrWindow, OfflineAminoSigner } from "@keplr-wallet/types";
+import { AbakhusJSWallet } from "./types";
 
 declare global {
     interface Window extends KeplrWindow {}
@@ -47,11 +48,22 @@ export class CosmosClient {
     }
 
     async getWallet(): Promise<any | undefined> {
+        // Cosmos abre Keplr
         try {
             if (typeof window !== 'undefined' && window.keplr) {
                 await window.keplr.enable('pulsar-3');
                 this.wallet = window.keplr.getOfflineSignerOnlyAmino('pulsar-3');
-                return this.wallet;
+                let abakhusJSWallet: AbakhusJSWallet = {
+                    cosmos: { wallet: this.wallet },
+                    address: "",
+                    balance: 0,
+                    network: undefined,
+                    chainId: "pulsar-3",
+                    ethereum: {
+                        wallet: undefined
+                    }
+                };
+                return abakhusJSWallet;
             } else {
                 console.log('Keplr wallet not installed!');
                 return undefined;

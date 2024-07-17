@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { AbakhusJS } from './core/abakhusjs';
-import { Keplr } from '@keplr-wallet/types';
+import { AbakhusJSWallet } from './core/types';
 
 function App() {
-  const [wallet, setWallet] = useState(undefined);
+  const [wallet, setWallet] = useState<AbakhusJSWallet | undefined>(undefined);
   const [network, setNetwork] = useState(undefined);
   useEffect(() => {
 
     const initWeb3 = async() => {
-      const abakhusjs = new AbakhusJS('secret');
+
+      //Define qual rede acessar: secret ou ethereum
+      const abakhusjs = new AbakhusJS('ethereum');    
       console.log("Kind: ", abakhusjs.toString());
-      const keplrWallet = await abakhusjs.getWallet();
-      console.log("Wallet: ", keplrWallet);
+      
+      //Define a carteira digital: keplr para Cosmos e metamask para Ethereum
+      const wallet: AbakhusJSWallet = await abakhusjs.getWallet();
+      console.log("Wallet: ", wallet);
 
-      const networkProvider = abakhusjs.getNetworkProvider();
+      //Objeto da rede escolhida
+      // const networkProvider = abakhusjs.getNetworkProvider();
 
-      setWallet(keplrWallet);
-      setNetwork(networkProvider as undefined);
+      setWallet(wallet);
+      // setNetwork(networkProvider as undefined);
     }
     initWeb3();
     
@@ -28,7 +33,7 @@ function App() {
       <header className="App-header">
         <p>
           AbakhusJS: <br/>
-          Wallet: {wallet ? (wallet as any).chainId : 'Loading wallet...'}
+          Chain: {wallet ? wallet.chainId : 'Loading wallet...'}
           <br/>
           Network: {network ? (network as any).walletAddress : 'Loading network...'}
         </p>
