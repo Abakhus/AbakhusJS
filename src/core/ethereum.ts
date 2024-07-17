@@ -106,10 +106,10 @@ export class EthereumClient {
 
           return abakhusJSWallet;
         } catch (error: Error | any) {
-          alert(`Error connecting to MetaMask: ${error?.message ?? error}`);
+          throw(`Error connecting to MetaMask: ${error?.message ?? error}`);
         }
       } else {
-        alert("MetaMask not installed");
+        throw("MetaMask not installed");
       }
     }
 

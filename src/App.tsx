@@ -10,19 +10,24 @@ function App() {
 
     const initWeb3 = async() => {
 
-      //Define qual rede acessar: secret ou ethereum
-      const abakhusjs = new AbakhusJS('ethereum');    
-      console.log("Kind: ", abakhusjs.toString());
-      
-      //Define a carteira digital: keplr para Cosmos e metamask para Ethereum
-      const wallet: AbakhusJSWallet = await abakhusjs.getWallet();
-      console.log("Wallet: ", wallet);
+      try {
+        //Define qual rede acessar: secret ou ethereum
+        const abakhusjs = new AbakhusJS('ethereum');    
+        console.log("Kind: ", abakhusjs.toString());
+        
+        //Define a carteira digital: keplr para Cosmos e metamask para Ethereum
+        const wallet: AbakhusJSWallet = await abakhusjs.getWallet();
+        console.log("Wallet: ", wallet);
 
-      //Objeto da rede escolhida
-      // const networkProvider = abakhusjs.getNetworkProvider();
+        //Objeto da rede escolhida
+        // const networkProvider = abakhusjs.getNetworkProvider();
 
-      setWallet(wallet);
-      // setNetwork(networkProvider as undefined);
+        setWallet(wallet);
+        // setNetwork(networkProvider as undefined);
+      } catch (e: any) {
+        console.error(e.message);
+        setWallet(undefined);
+      }
     }
     initWeb3();
     
