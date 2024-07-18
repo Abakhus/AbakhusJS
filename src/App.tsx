@@ -12,7 +12,7 @@ function App() {
 
       try {
         //Define qual rede acessar: secret ou ethereum
-        const abakhusjs = new AbakhusJS('ethereum');    
+        const abakhusjs = new AbakhusJS('secret');    
         console.log("Kind: ", abakhusjs.toString());
         
         //Define a carteira digital: keplr para Cosmos e metamask para Ethereum
@@ -20,10 +20,11 @@ function App() {
         console.log("Wallet: ", wallet);
 
         //Objeto da rede escolhida
-        // const networkProvider = abakhusjs.getNetworkProvider();
+        const networkProvider = abakhusjs.getNetworkProvider();
+        console.log("Network: ", networkProvider);
 
         setWallet(wallet);
-        // setNetwork(networkProvider as undefined);
+        setNetwork(networkProvider as undefined);
       } catch (e: any) {
         console.error(e.message);
         setWallet(undefined);
@@ -37,10 +38,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          AbakhusJS: <br/>
+          AbakhusJS <br/>
           Chain: {wallet ? wallet.chainId : 'Loading wallet...'}
           <br/>
-          Network: {network ? (network as any).walletAddress : 'Loading network...'}
+          Network: {network ? (network as any).url : 'Loading network...'}
         </p>
       </header>
     </div>
